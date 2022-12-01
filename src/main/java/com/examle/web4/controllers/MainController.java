@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,16 +26,14 @@ public class MainController {
 
     @GetMapping("api/result")
     public List<Result> getData() {
-        Iterator<Result> results = (Iterator<Result>) resultRepository.findAll();
-        for(int i = 0 ; results.hasNext(); i++) {
-            list.add(i,results.next());
-        }
+        Iterable<Result> results = resultRepository.findAll();
+        results.forEach(result1 -> list.add(result1));
         return list;
     }
 
-    @PostMapping("/")
+    @PostMapping("api/result")
     public Result createResult(@RequestParam Double x, @RequestParam Double y, @RequestParam Double r) {
-        result = makeResult.createResult(x,y,r);
+        result = makeResult.createResult(x, y, r);
         resultRepository.save(result);
         return result;
     }

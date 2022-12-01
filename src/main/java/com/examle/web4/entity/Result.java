@@ -29,7 +29,7 @@ public class Result {
     @Column
     private Double x;
     @Max(5)
-    @Min(5)
+    @Min(-5)
     @Column
     private Double y;
     @Max(5)
