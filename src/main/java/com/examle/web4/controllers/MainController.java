@@ -32,9 +32,9 @@ public class MainController {
     }
 
     @PostMapping("api/result")
-    public Result createResult(@RequestParam Double x, @RequestParam Double y, @RequestParam Double r) {
+    public Result createResult(@RequestParam Double x, @RequestParam Double y, @RequestParam Double r) throws CloneNotSupportedException {
         result = makeResult.createResult(x, y, r);
-        resultRepository.save(result);
+        resultRepository.save((Result) result.clone());
         return result;
     }
 }
