@@ -9,7 +9,7 @@ import javax.validation.constraints.Min;
 @Getter
 @Setter
 @Entity
-@Table(name = "results")
+@Table(name = "result")
 public class Result implements Cloneable{
 
     @Id

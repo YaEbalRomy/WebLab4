@@ -23,7 +23,7 @@ public class MainController {
     @Autowired
     private MakeResult makeResult;
     @Autowired
-    private ResponseLists responseClass;
+    private ResponseLists responseLists;
     @Autowired
     private ResponseResultPoint rsp;
 
@@ -36,13 +36,13 @@ public class MainController {
 
         Iterable<Result> results = resultRepository.findAll();
         results.forEach(resultList::add);
-        responseClass.setResultList(resultList);
+        responseLists.setResultList(resultList);
 
         Iterable<Point> points = pointRepository.findAll();
         points.forEach(pointList::add);
-        responseClass.setPointList(pointList);
+        responseLists.setPointList(pointList);
 
-        return responseClass;
+        return responseLists;
     }
 
     @PostMapping("api/result")
@@ -56,6 +56,14 @@ public class MainController {
     @DeleteMapping("api/result")
     public HttpStatus deleteFromDB() {
         resultRepository.deleteAll();
+        pointRepository.deleteAll();
+
+        resultList.clear();
+        pointList.clear();
+
+        responseLists.getPointList().clear();
+        responseLists.getPointList().clear();
+
         return HttpStatus.OK;
     }
 }

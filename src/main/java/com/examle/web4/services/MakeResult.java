@@ -31,6 +31,15 @@ public class MakeResult {
     }
 
     public ResponseResultPoint createObjectForResponse(ResponseResultPoint rsp, Double x, Double y, Double r) {
+        rsp.getPoint().setX(x);
+        rsp.getPoint().setY(y);
+        rsp.getPoint().setR(r);
+
+        rsp.getResult().setX(x);
+        rsp.getResult().setY(y);
+        rsp.getResult().setR(r);
+        rsp.getResult().setResult(checkArea.checkHit(x, y, r));
+        rsp.getResult().setTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")));
 
         return rsp;
     }
