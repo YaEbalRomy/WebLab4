@@ -11,14 +11,14 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
-    public User(){}
-
     @Id
-    @Column
+    @Column(nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column
+
+    @Column(nullable = false)
     private String login;
-    @Column
+
+    @Column(nullable = false)
     private String password;
 }
