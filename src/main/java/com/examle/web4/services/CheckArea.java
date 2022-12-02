@@ -1,7 +1,7 @@
 package com.examle.web4.services;
 
-import org.springframework.stereotype.Service;
-@Service
+import org.springframework.stereotype.Component;
+@Component
 public class CheckArea {
     public Boolean checkHit(Double x, Double y, Double r) {
 

@@ -10,7 +10,8 @@ import javax.validation.constraints.Min;
 @Setter
 @Entity
 @Table(name = "result")
-public class Result implements Cloneable{
+
+public class Result {
 
     @Id
     @Column(nullable = false, unique = true)
@@ -38,8 +39,4 @@ public class Result implements Cloneable{
     @Column(nullable = false)
     private String time;
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
 }

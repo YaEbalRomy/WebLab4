@@ -1,41 +1,45 @@
 package com.examle.web4.controllers;
 
+import com.examle.web4.dto.Point;
+import com.examle.web4.dto.ResultDTO;
 import com.examle.web4.entity.Result;
 import com.examle.web4.repositories.ResultRepository;
 import com.examle.web4.services.MakeResult;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/results")
+@RequiredArgsConstructor
 public class MainController {
-    @Autowired
-    private ResultRepository resultRepository;
-    @Autowired
-    private MakeResult makeResult;
-    private final List<Result> resultList = new ArrayList<>();
-    private Result result = new Result();
-    @GetMapping("api/result")
+    private final ResultRepository resultRepository;
+    private final MakeResult makeResult;
+    @GetMapping
     public List<Result> getData() {
-        Iterable<Result> results = resultRepository.findAll();
-        results.forEach(resultList::add);
-        return resultList;
+        return resultRepository.findAll();
     }
-
-    @PostMapping("api/result")
-    public Result addResult(@RequestBody Double x, @RequestBody Double y, @RequestBody Double r) throws CloneNotSupportedException {
-        result = makeResult.createResult(result, x, y, r);
-        resultRepository.save((Result) result.clone());
-        return result;
+    @PostMapping
+    public ResultDTO addResult(@RequestBody Point point) {
+        Result result = makeResult.createResult(point.getX(), point.getY(), point.getR());
+        resultRepository.save(result);
+        return new ResultDTO(result.getX(), result.getY(), result.getR(), result.getResult(), result.getTime());
     }
-
-    @DeleteMapping("api/result")
+    @DeleteMapping
     public HttpStatus deleteFromDB() {
         resultRepository.deleteAll();
-        resultList.clear();
         return HttpStatus.OK;
     }
 }
+
+
+
+
+
+
+
+
+
+
