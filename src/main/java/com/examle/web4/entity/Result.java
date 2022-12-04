@@ -9,7 +9,7 @@ import javax.validation.constraints.Min;
 @Getter
 @Setter
 @Entity
-@Table(name = "result")
+@Table(name = "results")
 
 public class Result {
 
@@ -21,22 +21,24 @@ public class Result {
     @Max(3)
     @Min(-5)
     @Column(nullable = false)
-    private Double x;
+    private double x;
 
     @Max(5)
     @Min(-5)
     @Column(nullable = false)
-    private Double y;
+    private double y;
 
     @Max(5)
     @Min(1)
     @Column(nullable = false)
-    private Double r;
+    private double r;
 
     @Column(nullable = false)
-    private Boolean result;
+    private boolean hit;
 
     @Column(nullable = false)
     private String time;
-
+    public boolean getHit() {
+        return hit;
+    }
 }

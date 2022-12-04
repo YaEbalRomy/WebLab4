@@ -1,6 +1,6 @@
 package com.examle.web4.controllers;
 
-import com.examle.web4.dto.Point;
+import com.examle.web4.dto.PointDTO;
 import com.examle.web4.dto.ResultDTO;
 import com.examle.web4.entity.Result;
 import com.examle.web4.repositories.ResultRepository;
@@ -22,10 +22,10 @@ public class MainController {
         return resultRepository.findAll();
     }
     @PostMapping
-    public ResultDTO addResult(@RequestBody Point point) {
+    public ResultDTO addResult(@RequestBody PointDTO point) {
         Result result = makeResult.createResult(point.getX(), point.getY(), point.getR());
         resultRepository.save(result);
-        return new ResultDTO(result.getX(), result.getY(), result.getR(), result.getResult(), result.getTime());
+        return new ResultDTO(result.getX(), result.getY(), result.getR(), result.getHit(), result.getTime());
     }
     @DeleteMapping
     public HttpStatus deleteFromDB() {

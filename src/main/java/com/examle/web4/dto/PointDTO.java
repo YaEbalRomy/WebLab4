@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Point {
+public class PointDTO {
     private double x;
     private double y;
     private double r;

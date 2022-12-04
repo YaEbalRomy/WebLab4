@@ -15,7 +15,7 @@ public class MakeResult {
         result.setX(x);
         result.setY(y);
         result.setR(r);
-        result.setResult(checkArea.checkHit(x, y, r));
+        result.setHit(checkArea.checkHit(x, y, r));
         result.setTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")));
         return result;
     }

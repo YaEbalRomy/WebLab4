@@ -10,9 +10,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResultDTO {
-    private Double x;
-    private Double y;
-    private Double r;
-    private Boolean result;
+    private double x;
+    private double y;
+    private double r;
+    private boolean hit;
     private String time;
 }
