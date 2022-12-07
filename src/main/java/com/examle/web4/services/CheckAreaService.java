@@ -1,8 +1,11 @@
 package com.examle.web4.services;
 
-import org.springframework.stereotype.Component;
-@Component
-public class CheckArea {
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
+
+@Service
+@SessionScope
+public class CheckAreaService {
     public boolean checkHit(Double x, Double y, Double r) {
 
         if ((x >= 0) && (x <= r) && (y <= r) && (y >= 0)) {

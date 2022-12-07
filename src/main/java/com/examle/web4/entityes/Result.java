@@ -1,16 +1,20 @@
-package com.examle.web4.entity;
+package com.examle.web4.entityes;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
+import javax.validation.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "results")
-
 public class Result {
 
     @Id
@@ -18,18 +22,18 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Max(3)
-    @Min(-5)
+    @Min(-3)
+    @Max(5)
     @Column(nullable = false)
     private double x;
 
-    @Max(5)
     @Min(-5)
+    @Max(5)
     @Column(nullable = false)
     private double y;
 
-    @Max(5)
     @Min(1)
+    @Max(5)
     @Column(nullable = false)
     private double r;
 
@@ -37,7 +41,11 @@ public class Result {
     private boolean hit;
 
     @Column(nullable = false)
-    private String time;
+    private LocalDateTime time;
+
+    @Column(nullable = false)
+    private String ownerUsername;
+
     public boolean getHit() {
         return hit;
     }

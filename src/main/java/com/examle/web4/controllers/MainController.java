@@ -2,35 +2,35 @@ package com.examle.web4.controllers;
 
 import com.examle.web4.dto.PointDTO;
 import com.examle.web4.dto.ResultDTO;
-import com.examle.web4.entity.Result;
-import com.examle.web4.repositories.ResultRepository;
-import com.examle.web4.services.MakeResult;
+import com.examle.web4.entityes.Result;
+import com.examle.web4.services.MainService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/results")
 @RequiredArgsConstructor
 public class MainController {
-    private final ResultRepository resultRepository;
-    private final MakeResult makeResult;
+    private final MainService mainService;
     @GetMapping
     public List<Result> getData() {
-        return resultRepository.findAll();
+        log.info("Запрос данных с бд");
+        return mainService.getData();
     }
     @PostMapping
-    public ResultDTO addResult(@RequestBody PointDTO point) {
-        Result result = makeResult.createResult(point.getX(), point.getY(), point.getR());
-        resultRepository.save(result);
-        return new ResultDTO(result.getX(), result.getY(), result.getR(), result.getHit(), result.getTime());
+    public ResultDTO addResult(@RequestBody PointDTO pointDTO) {
+        log.info("Запрос на добавление данных");
+        return mainService.addResult(pointDTO.getX(), pointDTO.getY(), pointDTO.getR());
     }
     @DeleteMapping
     public HttpStatus deleteFromDB() {
-        resultRepository.deleteAll();
-        return HttpStatus.OK;
+        log.info("Запрос на удаленные данных");
+        return mainService.deleteFromDB();
     }
 }
 

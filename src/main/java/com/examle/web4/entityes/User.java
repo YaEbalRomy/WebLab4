@@ -1,6 +1,7 @@
-package com.examle.web4.entity;
+package com.examle.web4.entityes;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,7 +10,12 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 public class User {
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     @Id
     @Column(nullable = false, unique = true)
@@ -17,8 +23,9 @@ public class User {
     private Integer id;
 
     @Column(nullable = false)
-    private String login;
+    private String username;
 
     @Column(nullable = false)
     private String password;
+
 }

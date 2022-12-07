@@ -1,22 +1,25 @@
 package com.examle.web4.services;
 
-import com.examle.web4.entity.Result;
+import com.examle.web4.entityes.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Service
+@SessionScope
 @RequiredArgsConstructor
-public class MakeResult {
-    private final CheckArea checkArea;
+public class MakeResultService {
+    private final CheckAreaService checkArea;
+    private final ValidationService validator;
     public Result createResult(Double x, Double y, Double r) {
         Result result = new Result();
-        result.setX(x);
-        result.setY(y);
+        result.setX(validator.validateX(x));
+        result.setY(validator.validateY(y));
         result.setR(r);
         result.setHit(checkArea.checkHit(x, y, r));
-        result.setTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")));
+        result.setTime(LocalDateTime.now());
         return result;
     }
 }
