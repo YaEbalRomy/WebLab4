@@ -1,7 +1,6 @@
-package com.examle.web4.configs;
+package com.examle.web4.config;
 
-import com.examle.web4.Jwt.JwtTokenProvider;
-import lombok.RequiredArgsConstructor;
+import com.examle.web4.jwt.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,9 +13,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class WebSecurityConfig {
-    private final WebFilter webFilter = new WebFilter(new JwtTokenProvider("jwtSecret",3600000));
+    private final WebFilter webFilter = new WebFilter(new JwtTokenProvider());
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

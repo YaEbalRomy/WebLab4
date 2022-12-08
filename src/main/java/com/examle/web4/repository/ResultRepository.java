@@ -1,6 +1,6 @@
-package com.examle.web4.repositories;
+package com.examle.web4.repository;
 
-import com.examle.web4.entityes.Result;
+import com.examle.web4.entity.Result;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

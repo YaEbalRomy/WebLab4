@@ -1,6 +1,6 @@
-package com.examle.web4.services;
+package com.examle.web4.service;
 
-import com.examle.web4.entityes.User;
+import com.examle.web4.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,11 +20,11 @@ public class RegistrationService {
         if (user == null) {
             user = new User(username, passwordEncoder.encode(password));
             dbService.saveUser(user);
-            log.info("Пользователь зарегистрирован");
-            return ResponseEntity.status(HttpStatus.OK).body("Пользователь зарегистрирован");
+            log.info("Регистрация прошла успешно");
+            return ResponseEntity.status(HttpStatus.OK).body("Регистрация прошла успешно");
         } else {
-            log.error("Такой пользователь уже существует");
-            return ResponseEntity.status(HttpStatus.OK).body("Такой пользователь уже существует");
+            log.error("Ошибка, такой пользователь уже существует");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ошибка, такой пользователь уже существует");
         }
     }
 

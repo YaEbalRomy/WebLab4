@@ -1,7 +1,7 @@
-package com.examle.web4.controllers;
+package com.examle.web4.controller;
 
 import com.examle.web4.dto.UserDTO;
-import com.examle.web4.services.RegistrationService;
+import com.examle.web4.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

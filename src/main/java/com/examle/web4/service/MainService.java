@@ -1,7 +1,7 @@
-package com.examle.web4.services;
+package com.examle.web4.service;
 
 import com.examle.web4.dto.ResultDTO;
-import com.examle.web4.entityes.Result;
+import com.examle.web4.entity.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

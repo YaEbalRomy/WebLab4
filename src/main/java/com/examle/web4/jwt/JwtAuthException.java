@@ -1,4 +1,4 @@
-package com.examle.web4.Jwt;
+package com.examle.web4.jwt;
 
 import javax.naming.AuthenticationException;
 

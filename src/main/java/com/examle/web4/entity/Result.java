@@ -1,4 +1,4 @@
-package com.examle.web4.entityes;
+package com.examle.web4.entity;
 
 import lombok.Getter;
 import lombok.Setter;

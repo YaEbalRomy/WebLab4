@@ -1,13 +1,12 @@
-package com.examle.web4.controllers;
+package com.examle.web4.controller;
 
 import com.examle.web4.dto.PointDTO;
 import com.examle.web4.dto.ResultDTO;
-import com.examle.web4.entityes.Result;
-import com.examle.web4.services.MainService;
+import com.examle.web4.entity.Result;
+import com.examle.web4.service.MainService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 

@@ -1,18 +1,15 @@
-package com.examle.web4.services;
+package com.examle.web4.service;
 
-import com.examle.web4.entityes.Result;
-import com.examle.web4.entityes.User;
-import com.examle.web4.repositories.ResultRepository;
-import com.examle.web4.repositories.UserRepository;
+import com.examle.web4.entity.Result;
+import com.examle.web4.entity.User;
+import com.examle.web4.repository.ResultRepository;
+import com.examle.web4.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class DbService {
@@ -21,7 +18,6 @@ public class DbService {
     public List<Result> getData(String ownerUsername) {
         return resultRepository.getResultsByOwnerUsername(ownerUsername);
     }
-
     @Transactional
     public HttpStatus deleteData(String ownerUsername) {
         resultRepository.deleteAllByOwnerUsername(ownerUsername);

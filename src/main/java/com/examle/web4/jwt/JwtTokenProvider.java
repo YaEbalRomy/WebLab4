@@ -1,28 +1,18 @@
-package com.examle.web4.Jwt;
+package com.examle.web4.jwt;
 
 import io.jsonwebtoken.*;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @Component
-@RequiredArgsConstructor
 public class JwtTokenProvider {
-    @Value("${jwt.token.secret}")
-    private String secret;
-    @Value("${jwt.token.expired}")
-    private long validityInMilSec;
-
-    public JwtTokenProvider (String secret, long validityInMilSec) {
-        this.secret = secret;
-        this.validityInMilSec = validityInMilSec;
-    }
+    private final String secret = "jwtSecret";
     public String createToken(String username) {
 
         Claims claims = Jwts.claims().setSubject(username);
         Date now = new Date();
+        long validityInMilSec = 900000;
         Date validity = new Date(now.getTime() + validityInMilSec);
 
         return Jwts.builder()
@@ -39,21 +29,13 @@ public class JwtTokenProvider {
     public boolean validateToken(String token) throws JwtAuthException {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
-            if (claims.getBody().getExpiration().before(new Date())) {
-                return false;
-            }
-            return true;
+            return !claims.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException ex) {
             System.out.println("Jwt token не верный");
             return false;
         }
     }
-
     public String resolveToken(HttpServletRequest req) {
-        String token = req.getHeader("Authorization");
-        if (token != null) {
-            return token;
-        }
-        return null;
+        return req.getHeader("Authorization");
     }
 }

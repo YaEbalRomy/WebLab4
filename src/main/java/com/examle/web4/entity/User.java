@@ -1,10 +1,11 @@
-package com.examle.web4.entityes;
+package com.examle.web4.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Getter
 @Setter
@@ -22,9 +23,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+ //   @Max(20)
+ //   @Min(12)
     @Column(nullable = false)
     private String username;
 
+//    @Max(20)
+//    @Min(12)
     @Column(nullable = false)
     private String password;
 

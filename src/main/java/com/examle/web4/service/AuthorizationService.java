@@ -1,7 +1,7 @@
-package com.examle.web4.services;
+package com.examle.web4.service;
 
-import com.examle.web4.Jwt.JwtTokenProvider;
-import com.examle.web4.entityes.User;
+import com.examle.web4.jwt.JwtTokenProvider;
+import com.examle.web4.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

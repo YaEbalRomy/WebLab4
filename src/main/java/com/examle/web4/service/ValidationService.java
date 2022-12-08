@@ -1,4 +1,4 @@
-package com.examle.web4.services;
+package com.examle.web4.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;

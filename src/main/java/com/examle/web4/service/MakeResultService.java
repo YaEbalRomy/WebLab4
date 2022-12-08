@@ -1,6 +1,6 @@
-package com.examle.web4.services;
+package com.examle.web4.service;
 
-import com.examle.web4.entityes.Result;
+import com.examle.web4.entity.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
