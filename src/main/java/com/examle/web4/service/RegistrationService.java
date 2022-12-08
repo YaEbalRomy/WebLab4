@@ -1,5 +1,6 @@
 package com.examle.web4.service;
 
+import com.examle.web4.dto.ResponseDTO;
 import com.examle.web4.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +22,10 @@ public class RegistrationService {
             user = new User(username, passwordEncoder.encode(password));
             dbService.saveUser(user);
             log.info("Регистрация прошла успешно");
-            return ResponseEntity.status(HttpStatus.OK).body("Регистрация прошла успешно");
+            return new ResponseEntity<>(new ResponseDTO(HttpStatus.CREATED.value(),"Регистрация прошла успешно"), HttpStatus.CREATED);
         } else {
             log.error("Ошибка, такой пользователь уже существует");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ошибка, такой пользователь уже существует");
+            return new ResponseEntity<>(new ResponseDTO(HttpStatus.CONFLICT.value(),"Ошибка, такой пользователь уже существует"), HttpStatus.CONFLICT);
         }
     }
 

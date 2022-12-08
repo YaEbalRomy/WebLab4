@@ -1,5 +1,6 @@
 package com.examle.web4.service;
 
+import com.examle.web4.dto.ResponseDTO;
 import com.examle.web4.jwt.JwtTokenProvider;
 import com.examle.web4.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +23,14 @@ public class AuthorizationService {
         String token = jwtTokenProvider.createToken(username);
         if (user == null) {
             log.error("Такого пользователя не существует");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Такого пользователя не существует");
+            return new ResponseEntity<>(new ResponseDTO(HttpStatus.CONFLICT.value(),"Такого пользователя не существует"), HttpStatus.CONFLICT);
         } else {
             if (passwordEncoder.matches(password,user.getPassword())) {
                 log.info("Авторизация прошла успешно");
-                return ResponseEntity.status(HttpStatus.OK).body(token);
+                return new ResponseEntity<>(new ResponseDTO(HttpStatus.OK.value(),token),HttpStatus.OK);
             } else {
                 log.error("Авторизация не прошла, неверный пароль");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Авторизация не прошла, неверный пароль");
+                return new ResponseEntity<>(new ResponseDTO(HttpStatus.BAD_REQUEST.value(),"Авторизация не прошла, неверный пароль"),HttpStatus.BAD_REQUEST);
             }
         }
     }
