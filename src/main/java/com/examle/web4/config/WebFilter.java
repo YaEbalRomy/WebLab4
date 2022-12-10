@@ -23,10 +23,11 @@ public class WebFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 
-        String token = jwtTokenProvider.resolveToken(httpServletRequest);
+        String accessToken = jwtTokenProvider.resolveAccessToken(httpServletRequest);
+        String refreshToken = jwtTokenProvider.resolveRefreshToken(httpServletRequest);
         try {
-            if (token != null && jwtTokenProvider.validateToken(token)) {
-                Authentication authentication = new UsernamePasswordAuthenticationToken(jwtTokenProvider.getUsername(token),"", Collections.singleton((GrantedAuthority) () -> "USER"));
+            if ((accessToken != null && jwtTokenProvider.validateToken(accessToken)) || (refreshToken != null && jwtTokenProvider.validateToken(refreshToken))) {
+                Authentication authentication = new UsernamePasswordAuthenticationToken(jwtTokenProvider.getUsername(refreshToken),"", Collections.singleton((GrantedAuthority) () -> "USER"));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (JwtAuthException e) {

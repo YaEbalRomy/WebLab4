@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 @Service
-@SessionScope
 public class CheckAreaService {
     public boolean checkHit(Double x, Double y, Double r) {
 

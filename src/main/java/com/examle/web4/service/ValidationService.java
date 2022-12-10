@@ -1,10 +1,7 @@
 package com.examle.web4.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.SessionScope;
-
 @Service
-@SessionScope
 public class ValidationService {
     public double validateX(double x) {
       if (x > 3.0)  {
@@ -21,5 +18,13 @@ public class ValidationService {
             return -5.0;
         }
         return y;
+    }
+    public double validateR(double r) {
+        if (r > 5.0)  {
+            return 5.0;
+        } else if (r < 1.0) {
+            return 1.0;
+        }
+        return r;
     }
 }

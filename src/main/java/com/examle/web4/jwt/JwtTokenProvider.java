@@ -1,18 +1,21 @@
 package com.examle.web4.jwt;
 
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
-    private final String secret = "jwtSecret";
-    public String createToken(String username) {
+
+    //@Value("#{systemEnvironment['jwtSecret'] ?: 'jwtSecret'}")
+    private final String secret = "g4gu31341h4ev1b";
+
+    public String createToken(String username, long validityInMilSec) {
 
         Claims claims = Jwts.claims().setSubject(username);
         Date now = new Date();
-        long validityInMilSec = 900000;
         Date validity = new Date(now.getTime() + validityInMilSec);
 
         return Jwts.builder()
@@ -35,7 +38,10 @@ public class JwtTokenProvider {
             return false;
         }
     }
-    public String resolveToken(HttpServletRequest req) {
-        return req.getHeader("Authorization");
+    public String resolveAccessToken(HttpServletRequest req) {
+        return req.getHeader("AccessToken");
+    }
+    public String resolveRefreshToken(HttpServletRequest req) {
+        return req.getHeader("RefreshToken");
     }
 }

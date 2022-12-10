@@ -1,15 +1,18 @@
 package com.examle.web4.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 
+@Builder
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "results")
 public class Result {
 
@@ -18,8 +21,8 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Min(-3)
-    @Max(5)
+    @Min(-5)
+    @Max(3)
     @Column(nullable = false)
     private double x;
 
@@ -40,7 +43,7 @@ public class Result {
     private LocalDateTime time;
 
     @Column(nullable = false)
-    private String ownerUsername;
+    private String ownerUsername; //TODO @ManyToOne
 
     public boolean getHit() {
         return hit;

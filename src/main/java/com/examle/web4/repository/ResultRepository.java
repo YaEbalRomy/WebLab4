@@ -7,8 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 
-@Repository
 public interface ResultRepository extends CrudRepository<Result, Long> {
-    List<Result> getResultsByOwnerUsername(String ownerUsername);
+    List<Result> getResultsByOwnerUsername(String ownerUsername); ////Optional
     void deleteAllByOwnerUsername(String ownerUsername);
 }

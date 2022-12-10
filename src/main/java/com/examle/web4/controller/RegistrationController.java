@@ -1,5 +1,6 @@
 package com.examle.web4.controller;
 
+import com.examle.web4.dto.ResponseDTO;
 import com.examle.web4.dto.UserDTO;
 import com.examle.web4.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,7 @@ public class RegistrationController {
     @PostMapping
     public ResponseEntity<?> processRegistration(@RequestBody UserDTO userDTO) {
         log.info("Принят запрос на регистрацию");
-        try {
-            return registrationService.registration(userDTO.getUsername(),userDTO.getPassword());
-        } catch (RuntimeException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
-        }
+        ResponseDTO responseDTO = registrationService.registration(userDTO.getUsername(),userDTO.getPassword());
+        return new ResponseEntity<>(responseDTO, HttpStatus.valueOf(responseDTO.getStatusCode()));
     }
 }
