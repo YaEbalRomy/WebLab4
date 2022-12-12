@@ -1,17 +1,21 @@
 package com.examle.web4.jwt;
 
+import com.examle.web4.entity.User;
+import com.examle.web4.repository.UserRepository;
 import io.jsonwebtoken.*;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenProvider {
 
     //@Value("#{systemEnvironment['jwtSecret'] ?: 'jwtSecret'}")
     private final String secret = "g4gu31341h4ev1b";
-
+    private final UserRepository userRepository;
     public String createToken(String username, long validityInMilSec) {
 
         Claims claims = Jwts.claims().setSubject(username);
@@ -29,12 +33,22 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public boolean validateToken(String token) throws JwtAuthException {
+    public boolean validateAccessToken(String token) throws JwtAuthException {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException ex) {
-            System.out.println("Jwt token не верный");
+            System.out.println("Jwt accessToken не верный");
+            return false;
+        }
+    }
+    public boolean validateRefreshToken(String token) throws JwtAuthException {
+        try {
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            Optional<User> user = userRepository.findByUsername(getUsername(token));
+            return user.filter(value -> (!claims.getBody().getExpiration().before(new Date())) && value.getRefreshToken().equals(token)).isPresent();
+        } catch (JwtException | IllegalArgumentException | NullPointerException ex) {
+            System.out.println("Jwt refreshToken не верный");
             return false;
         }
     }

@@ -8,13 +8,12 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class MakeResultService {
     private final CheckAreaService checkArea;
-    private final ValidationService validator;
     public Result createResult(Double x, Double y, Double r) {
 
         return Result.builder()
-                .x(validator.validateX(x))
-                .y(validator.validateY(y))
-                .r(validator.validateR(r))
+                .x(x)
+                .y(y)
+                .r(r)
                 .hit(checkArea.checkHit(x, y, r))
                 .time(LocalDateTime.now())
                 .build();

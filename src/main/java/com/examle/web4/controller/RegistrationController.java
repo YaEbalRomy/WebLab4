@@ -9,15 +9,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @RequestMapping("/registration")
 @RequiredArgsConstructor
 public class RegistrationController {
     private final RegistrationService registrationService;
-
     @PostMapping
-    public ResponseEntity<?> processRegistration(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> processRegistration(@RequestBody @Valid UserDTO userDTO) {
         log.info("Принят запрос на регистрацию");
         ResponseDTO responseDTO = registrationService.registration(userDTO.getUsername(),userDTO.getPassword());
         return new ResponseEntity<>(responseDTO, HttpStatus.valueOf(responseDTO.getStatusCode()));

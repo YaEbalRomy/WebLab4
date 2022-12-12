@@ -1,5 +1,6 @@
 package com.examle.web4.service;
 
+import com.examle.web4.dto.ResponseDTO;
 import com.examle.web4.dto.ResultDTO;
 import com.examle.web4.entity.Result;
 import com.examle.web4.repository.ResultRepository;
@@ -31,10 +32,10 @@ public class MainService {
     }
 
     @Transactional
-    public HttpStatus deleteFromDB() { //todo remove http binding
+    public ResponseDTO deleteFromDB() {
         log.info("Удаление...");
         resultRepository.deleteAllByOwnerUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        return HttpStatus.OK;
+        return new ResponseDTO(HttpStatus.OK.value(),"Данные удалены");
 
     }
 }
