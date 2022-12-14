@@ -10,12 +10,10 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserDTO {
-
+public class ReqUserDto {
     @NotBlank
     @Length(min = 6, max = 20)
     private String username;
-
     @NotBlank
     @Length(min = 6, max = 20)
     private String password;

@@ -1,7 +1,7 @@
 package com.examle.web4.controller;
 
 import com.examle.web4.dto.ResponseDTO;
-import com.examle.web4.dto.UserDTO;
+import com.examle.web4.dto.ReqUserDto;
 import com.examle.web4.service.AuthorizationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,9 +17,9 @@ import javax.validation.Valid;
 public class AuthorizationController {
     private final AuthorizationService authorizationService;
     @PostMapping
-    public ResponseEntity<?> authorization(@RequestBody @Valid  UserDTO userDTO) {
+    public ResponseEntity<?> authorization(@RequestBody @Valid ReqUserDto reqUserDto) {
         log.info("Принят запрос на авторизацию");
-        ResponseDTO responseDTO = authorizationService.authorization(userDTO.getUsername(), userDTO.getPassword());
+        ResponseDTO responseDTO = authorizationService.authorization(reqUserDto.getUsername(), reqUserDto.getPassword());
         return new ResponseEntity<>(responseDTO, HttpStatus.valueOf(responseDTO.getStatusCode()));
     }
 }

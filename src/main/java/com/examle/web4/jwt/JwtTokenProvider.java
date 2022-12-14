@@ -30,7 +30,11 @@ public class JwtTokenProvider {
                 .compact();
     }
     public String getUsername(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
+        try {
+            return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
+        } catch (ExpiredJwtException ex) {
+            return null;
+        }
     }
 
     public boolean validateAccessToken(String token) throws JwtAuthException {
@@ -42,10 +46,10 @@ public class JwtTokenProvider {
             return false;
         }
     }
-    public boolean validateRefreshToken(String token) throws JwtAuthException {
+    public boolean validateRefreshToken(String token) throws JwtAuthException, ExpiredJwtException {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
-            Optional<User> user = userRepository.findByUsername(getUsername(token));
+            Optional<User> user = userRepository.getByUsername(getUsername(token));
             return user.filter(value -> (!claims.getBody().getExpiration().before(new Date())) && value.getRefreshToken().equals(token)).isPresent();
         } catch (JwtException | IllegalArgumentException | NullPointerException ex) {
             System.out.println("Jwt refreshToken не верный");

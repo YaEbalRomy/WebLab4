@@ -1,13 +1,12 @@
 package com.examle.web4.dto;
 
-import lombok.AllArgsConstructor;
+import com.examle.web4.entity.Result;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
-
 public class ResponseDTO {
     public ResponseDTO (int statusCode, String message) {
         this.statusCode = statusCode;
@@ -18,9 +17,9 @@ public class ResponseDTO {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }
+
     private int statusCode;
     private String message;
     private String accessToken;
     private String refreshToken;
-
 }

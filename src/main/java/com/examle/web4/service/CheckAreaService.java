@@ -1,8 +1,6 @@
 package com.examle.web4.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.SessionScope;
-
 @Service
 public class CheckAreaService {
     public boolean checkHit(Double x, Double y, Double r) {

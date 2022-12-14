@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Slf4j
@@ -19,7 +18,7 @@ public class RegistrationService {
     private final UserRepository userRepository;
     public ResponseDTO registration(String username, String password) {
         log.info("Происходит регистрация пользователя - " + username);
-        Optional<User> user = userRepository.findByUsername(username);
+        Optional<User> user = userRepository.getByUsername(username);
         if (!user.isPresent()) {
             User userToSave = new User(username, passwordEncoder.encode(password));
             userRepository.save(userToSave);

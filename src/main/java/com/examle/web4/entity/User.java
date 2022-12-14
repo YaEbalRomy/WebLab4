@@ -17,7 +17,6 @@ public class User {
         this.username = username;
         this.password = password;
     }
-
     @Id
     @Column(nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,10 +24,8 @@ public class User {
     @Length(min = 6, max = 20)
     @Column(nullable = false)
     private String username;
-
     @Column(nullable = false)
     private String password;
-
     private String refreshToken;
 
 }

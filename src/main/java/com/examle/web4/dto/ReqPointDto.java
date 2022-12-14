@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PointDTO {
+public class ReqPointDto {
     @Min(-5)
     @Max(3)
     @NotNull

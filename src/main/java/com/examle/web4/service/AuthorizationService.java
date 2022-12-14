@@ -22,17 +22,17 @@ public class AuthorizationService {
 
     public ResponseDTO authorization(String username, String password) {
         log.info("Происходит авторизация пользователя - " + username);
-        Optional<User> user = userRepository.findByUsername(username);
+        Optional<User> user = userRepository.getByUsername(username);
         if (!user.isPresent()) {
             log.error("Такого пользователя не существует");
             return new ResponseDTO(HttpStatus.CONFLICT.value(), "Такого пользователя не существует");
         } else {
             if (passwordEncoder.matches(password,user.get().getPassword())) {
-                log.info("Авторизация прошла успешно");
-                String accessToken = jwtTokenProvider.createToken(username, 60000);
-                String refreshToken = jwtTokenProvider.createToken(username, 600000);
+                String accessToken = jwtTokenProvider.createToken(username, 600000);
+                String refreshToken = jwtTokenProvider.createToken(username, 1800000);
                 user.get().setRefreshToken(refreshToken);
                 userRepository.save(user.get());
+                log.info("Авторизация прошла успешно");
                 return new ResponseDTO(HttpStatus.OK.value(), accessToken, refreshToken);
             } else {
                 log.error("Авторизация не прошла, неверный пароль");

@@ -15,11 +15,19 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "results")
 public class Result {
+    public Result(double x, double y, double r, boolean hit, LocalDateTime time, User user) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.hit = hit;
+        this.time = time;
+        this.user = user;
+    }
 
     @Id
     @Column(nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Min(-5)
     @Max(3)
@@ -42,8 +50,8 @@ public class Result {
     @Column(nullable = false)
     private LocalDateTime time;
 
-    @Column(nullable = false)
-    private String ownerUsername; //TODO @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     public boolean getHit() {
         return hit;
